@@ -30,6 +30,13 @@
             $sql="INSERT INTO `task_details`(`TASK_NAME`, `TASK_DESCRIPTION`) VALUES ('$taskname','$dscrptn')";
             setData($sql);
         }
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["buttonupdate"])) {
+            $taskname= $_POST["taskNameedit"];
+            $dscrptn= $_POST["taskDesedit"];
+            $sql="UPDATE `task_details` SET `TASK_NAME`='$taskname',`TASK_DESCRIPTION`='$dscrptn' WHERE `ID` = 1";
+            setData($sql);
+        }
         
     ?>
     <div class="container">
@@ -51,17 +58,18 @@
             </div>
         </div>
 
-        <!-- Modal for adding  tasks -->
+        <!-- Modal for editing  tasks -->
         <div id="editModal" class="modal1">
             <div class="modal-content">
                 <span onclick="closeModal()" style="float: right; cursor: pointer;">&times;</span>
                 <h2 id="modalTitle">Edit Task</h2>
-                <form id="taskForm" method="POST">
+                <form id="editForm" method="POST">
+                    <input type="hidden" name="task_id" id="task_id" value=0>
                     <label class="popuplabel" for="taskNameedit">Task Name:</label>
                     <input class="popupinput" type="text" id="taskNameedit" name="taskNameedit"><br>
                     <label class="popuplabel1" for="taskDesedit">Task Description:</label>
                     <input class="popupinput" type="text" id="taskDesedit" name="taskDesedit"><br>
-                    <input type="submit" value="Update" name="buttonedit" onclick="showEditModal()"/>
+                    <button type="submit" class="btnedit" name="buttonupdate">Update</button>
                 </form>
             </div>
         </div>
@@ -71,7 +79,7 @@
         $sql="SELECT * FROM `task_details`";
         $result = getData($sql);
         ?>
-        <table>
+        <table id="myTable">
             <tr>
                 <th>Task Name</th>
                 <th>Task Description</th>
@@ -87,7 +95,7 @@
                         <td data-target="taskNameedit"><?php echo $row['TASK_NAME'];?></td>
                         <td data-targrt="taskDesedit"><?php echo $row['TASK_DESCRIPTION'];?></td>
                         <td>
-                            <button class="btnedit" data-id="<?php echo $row['ID']; ?>" onclick="showEditModal(<?php echo $row['ID']; ?>)">Edit</button>
+                            <button type="button" id="edit" value="<?=$row['ID'];?>" class="btnedit" onclick="showEditModal(<?=$row['ID'];?>)">Edit</button>
                             <button class="btndelete" type="button" name="button" onclick = "deletedata(<?php echo $row['ID']; ?>);">Delete</button>
                         </td>
                     </tr>
@@ -95,7 +103,6 @@
                 }
             }
             ?>
-            <!-- Add more rows as needed -->
         </table>
     </div>
         <script src="js/script.js"></script>

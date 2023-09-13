@@ -4,12 +4,15 @@ function showAddModal() {
 }
 const modal1 = document.getElementById('editModal');
 function showEditModal(id) {
-   modal1.style.display = 'block';
-   var id=id;
-   var taskName= $('#'+id).children('td[data-target="taskNameedit"]').text();
-   var description= $('#'+id).children('td[data-target="taskDesedit"]').text();
+    
+   var tid=id;
+   var dd= document.getElementById('edit').value;
+   var taskName= $('#'+tid).children('td[data-target="taskNameedit"]').text();
+   var description= $('#'+tid).children('td[data-target="taskDesedit"]').text();
+   $('#task_id').val(dd);
    $('#taskNameedit').val(taskName);
    $('#taskDesedit').val(description);
+   modal1.style.display = 'block';
 }
 
 function closeModal() {
