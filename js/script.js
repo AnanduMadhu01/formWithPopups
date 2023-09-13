@@ -6,10 +6,9 @@ const modal1 = document.getElementById('editModal');
 function showEditModal(id) {
     
    var tid=id;
-   var dd= document.getElementById('edit').value;
    var taskName= $('#'+tid).children('td[data-target="taskNameedit"]').text();
    var description= $('#'+tid).children('td[data-target="taskDesedit"]').text();
-   $('#task_id').val(dd);
+   $('#task_id').val(tid);
    $('#taskNameedit').val(taskName);
    $('#taskDesedit').val(description);
    modal1.style.display = 'block';

@@ -22,7 +22,6 @@
     </style>
 </head>
 <body>
-
     <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["buttonadd"])) {
             $taskname= $_POST["taskName"];
@@ -34,10 +33,10 @@
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["buttonupdate"])) {
             $taskname= $_POST["taskNameedit"];
             $dscrptn= $_POST["taskDesedit"];
-            $sql="UPDATE `task_details` SET `TASK_NAME`='$taskname',`TASK_DESCRIPTION`='$dscrptn' WHERE `ID` = 1";
+            $taskid= $_POST["task_id"];
+            $sql="UPDATE `task_details` SET `TASK_NAME`='$taskname',`TASK_DESCRIPTION`='$dscrptn' WHERE `ID` = '$taskid'";
             setData($sql);
         }
-        
     ?>
     <div class="container">
         <h1>Task List</h1>
@@ -93,7 +92,7 @@
                     ?>
                     <tr id = "<?php echo $row["ID"]; ?>">
                         <td data-target="taskNameedit"><?php echo $row['TASK_NAME'];?></td>
-                        <td data-targrt="taskDesedit"><?php echo $row['TASK_DESCRIPTION'];?></td>
+                        <td data-target="taskDesedit"><?php echo $row['TASK_DESCRIPTION'];?></td>
                         <td>
                             <button type="button" id="edit" value="<?=$row['ID'];?>" class="btnedit" onclick="showEditModal(<?=$row['ID'];?>)">Edit</button>
                             <button class="btndelete" type="button" name="button" onclick = "deletedata(<?php echo $row['ID']; ?>);">Delete</button>
